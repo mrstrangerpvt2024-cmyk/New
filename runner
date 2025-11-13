@@ -1,0 +1,11 @@
+# runner.py
+import logging
+from logger import logging  # ensure logger.py is updated
+import main  # ye aapka main.py ko import karke bot start karega
+
+if __name__ == "__main__":
+    logging.info("🚀 Bot is starting...")
+    try:
+        main.bot.run()  # Pyrogram client run
+    except Exception as e:
+        logging.error(f"❌ Bot failed to start: {e}")
