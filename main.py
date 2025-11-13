@@ -541,13 +541,11 @@ async def txt_handler(bot: Client, m: Message):
         os.remove(x)
         return
     
-    await editable.edit(f"Total 🔗 links found are {len(links)}\nSend From where you want to download. Initial is 1")
+    await editable.edit(f"Total 🔗 links found are {len(content)}\nSend From where you want to download. Initial is 1")
+    input0: Message = await bot.listen(editable.chat.id)
+    start_index = int(input0.text) if input0.text.isdigit() else 1
+    await input0.delete(True)
 
-# Listen for the user input directly without AUTH_USERS check
-input0: Message = await bot.listen(editable.chat.id)
-raw_text = input0.text
-await input0.delete(True)
-           
     await editable.edit("__Enter Batch Name or send /d for grabbing from text filename.__")
     input1: Message = await bot.listen(editable.chat.id)
     raw_text0 = input1.text
