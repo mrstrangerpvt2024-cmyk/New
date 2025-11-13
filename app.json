@@ -1,0 +1,39 @@
+{
+  "name": "𝐓𝐞𝐱𝐭 Uploader 🚀 мʳ н𝕖Ｌℙ𝐞ｒ 🚀 BOT",
+  "description": "Download videos from various websites using this Telegram bot.",
+  "logo": "https://envs.sh/cOi.jpg",
+  "keywords": [
+    "drm-video-downloader",
+    "video-extract",
+    "pyrogram"
+  ],
+  "repository": "https://github.com/hackercoder24/updatetxt2vid",
+  "success_url": "https://telegram.me/urban_rider2007",
+  "stack": "container",
+  "env": {
+    "API_ID": {
+      "description": "22470912",
+      "required": true
+    },
+    "API_HASH": {
+      "description": "511be78079ed5d4bd4c967bc7b5ee023",
+      "required": true
+    },
+    "BOT_TOKEN": {
+      "description": "Enter your bot token You can generate by @BotFather",
+      "required": true
+    }
+  },
+  "services": [
+    {
+      "type": "web",
+      "name": "worker",
+      "env": "docker",
+      "exec": "sh start.sh",
+      "autoDeploy": true,
+      "ports": [
+        8080
+      ]
+    }
+  ]
+    }
