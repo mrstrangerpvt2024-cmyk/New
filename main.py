@@ -36,8 +36,27 @@ import aiofiles
 import zipfile
 import shutil
 import ffmpeg
+import threading
+from flask import Flask
 
-# Initialize the bot
+# -------------------- Flask Wrapper --------------------
+app = Flask("")
+
+@app.route("/")
+def home():
+    return "Bot is running..."
+
+def run_flask():
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+
+# Start Flask in a separate thread
+threading.Thread(target=run_flask).start()
+# -------------------------------------------------------
+
+# -------------------- Telegram Bot Init --------------------
+from pyrogram import Client
+from vars import API_ID, API_HASH, BOT_TOKEN
+
 bot = Client(
     "bot",
     api_id=API_ID,
