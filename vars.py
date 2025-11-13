@@ -1,16 +1,16 @@
 import os
 
 try:
-    API_ID = int(os.environ["22470912"])
+    API_ID = int(os.environ["API_ID"])
 except KeyError:
-    raise RuntimeError("❌ Environment variable API_ID not set!")
+    raise RuntimeError("22470912")
 
 try:
-    API_HASH = os.environ["511be78079ed5d4bd4c967bc7b5ee023"]
+    API_HASH = ["API_HASH"]
 except KeyError:
-    raise RuntimeError("❌ Environment variable API_HASH not set!")
+    raise RuntimeError("511be78079ed5d4bd4c967bc7b5ee023")
 
 try:
-    BOT_TOKEN = os.environ["7254519583:AAHCuy42E2GbwNFzfUF1Gjt5oBAoOy_i7Kw"]
+    BOT_TOKEN = os.environ["BOT_TOKEN"]
 except KeyError:
-    raise RuntimeError("❌ Environment variable BOT_TOKEN not set!")
+    raise RuntimeError("7254519583:AAHCuy42E2GbwNFzfUF1Gjt5oBAoOy_i7Kw")
