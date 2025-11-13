@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: telegram-bot
+    env: python
+    plan: free
+    buildCommand: |
+      python -m pip install --upgrade pip
+      pip install -r requirements.txt
+    startCommand: python main.py
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: API_ID
+        fromSecret: API_ID
+      - key: API_HASH
+        fromSecret: API_HASH
+      - key: BOT_TOKEN
+        fromSecret: BOT_TOKEN
+      - key: CREDIT
+        fromSecret: CREDIT
+        
