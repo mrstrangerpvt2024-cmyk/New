@@ -76,8 +76,9 @@ with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             return
 
     # Extract the YouTube links
-    videos = []
-    if 'entries' in result:
+videos = []
+
+if 'entries' in result:
         for entry in result['entries']:
             video_title = entry.get('title', 'No title')
             url = entry['url']
