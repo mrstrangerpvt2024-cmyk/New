@@ -18,7 +18,7 @@ from Crypto.Util.Padding import unpad
 from base64 import b64encode, b64decode
 from bs4 import BeautifulSoup
 import helper
-from vars import API_ID, API_HASH, BOT_TOKEN, OWNER, CREDIT, AUTH_USERS
+from vars import API_ID, API_HASH, BOT_TOKEN
 from aiohttp import ClientSession
 from subprocess import getstatusoutput
 from pytube import YouTube
