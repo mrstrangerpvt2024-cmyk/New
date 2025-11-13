@@ -552,14 +552,12 @@ async def txt_handler(bot: Client, m: Message):
         os.remove(x)
         return
     
-    await editable.edit(f"Total 🔗 links found are {len(links)}\nSend From where you want to download.initial is 1")
-    if m.chat.id not in AUTH_USERS:
-        print(f"User ID not in AUTH_USERS", m.chat.id)
-        await bot.send_message(m.chat.id, f"__Oopss! You are not a Premium member __\n__PLEASE /upgrade YOUR PLAN__\n__Send me your user id for authorization__\n__Your User id__ - `{m.chat.id}`\n")
-        return
-    input0: Message = await bot.listen(editable.chat.id)
-    raw_text = input0.text
-    await input0.delete(True)
+    await editable.edit(f"Total 🔗 links found are {len(links)}\nSend From where you want to download. Initial is 1")
+
+# Listen for the user input directly without AUTH_USERS check
+input0: Message = await bot.listen(editable.chat.id)
+raw_text = input0.text
+await input0.delete(True)
            
     await editable.edit("__Enter Batch Name or send /d for grabbing from text filename.__")
     input1: Message = await bot.listen(editable.chat.id)
