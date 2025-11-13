@@ -267,9 +267,7 @@ async def getcookies_handler(client: Client, m: Message):
 
 @bot.on_message(filters.command(["stop"]) )
 async def restart_handler(_, m):
-    if m.chat.id not in AUTH_USERS:
-        print(f"User ID not in AUTH_USERS", m.chat.id)
-        await bot.send_message(
+    await bot.send_message(
             m.chat.id, 
             f"<blockquote>__**Oopss! You are not a Premium member**__\n"
             f"__**PLEASE /upgrade YOUR PLAN**__\n"
@@ -345,7 +343,7 @@ async def start(bot, m: Message):
     )
 
     await asyncio.sleep(1)
-    if m.chat.id in AUTH_USERS:
+    if m.chat.id:
         await start_message.edit_text(
             f"🌟 Welcome {m.from_user.first_name}! 🌟\n\n" +
             f"Great! You are a premium member!\n"
