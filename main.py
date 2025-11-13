@@ -54,7 +54,7 @@ photocp = 'https://tinypic.host/images/2025/03/28/IMG_20250328_133126.jpg'
 photozip = 'https://envs.sh/cD_.jpg'
 
 # Fetch the YouTube information using yt-dlp with cookies
-    ydl_opts = {
+ydl_opts = {
         'quiet': True,
         'extract_flat': True,
         'skip_download': True,
