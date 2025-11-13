@@ -62,8 +62,7 @@ ydl_opts = {
         'forcejson': True,
         'cookies': 'youtube_cookies.txt'  # Specify the cookies file
     }
-
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         try:
             result = ydl.extract_info(youtube_link, download=False)
             if 'entries' in result:
