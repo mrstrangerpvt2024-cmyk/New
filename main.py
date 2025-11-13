@@ -79,30 +79,29 @@ with yt_dlp.YoutubeDL(ydl_opts) as ydl:
 videos = []
 
 if 'entries' in result:
-        for entry in result['entries']:
-            video_title = entry.get('title', 'No title')
-            url = entry['url']
-            videos.append(f"{video_title}: {url}")
-    else:
-        video_title = result.get('title', 'No title')
-        url = result['url']
+    for entry in result['entries']:
+        video_title = entry.get('title', 'No title')
+        url = entry['url']
         videos.append(f"{video_title}: {url}")
+else:
+    video_title = result.get('title', 'No title')
+    url = result['url']
+    videos.append(f"{video_title}: {url}")
 
-    # Create and save the .txt file with the custom name
-    txt_file = os.path.join("downloads", f'{title}.txt')
-    os.makedirs(os.path.dirname(txt_file), exist_ok=True)  # Ensure the directory exists
-    with open(txt_file, 'w') as f:
-        f.write('\n'.join(videos))
+# Create and save the .txt file with the custom name
+txt_file = os.path.join("downloads", f'{title}.txt')
+os.makedirs(os.path.dirname(txt_file), exist_ok=True)  # Ensure the directory exists
+with open(txt_file, 'w') as f:
+    f.write('\n'.join(videos))
 
-    # Send the generated text file to the user with a pretty caption
-    await message.reply_document(
-        document=txt_file,
-        caption=f'<a href="{youtube_link}">__**Click Here to Open Link**__</a>\n<pre><code>{title}.txt</code></pre>\n'
-    )
+# Send the generated text file to the user with a pretty caption
+await message.reply_document(
+    document=txt_file,
+    caption=f'<a href="{youtube_link}">__**Click Here to Open Link**__</a>\n<pre><code>{title}.txt</code></pre>\n'
+)
 
-    # Remove the temporary text file after sending
-    os.remove(txt_file)
-
+# Remove the temporary text file after sending
+os.remove(txt_file)
 
 m_file_path= "main.py"
 @bot.on_message(filters.command("start"))
