@@ -7,6 +7,7 @@ import requests
 import subprocess
 from subprocess import getstatusoutput
 from aiohttp import ClientSession
+from threading import Thread
 
 from pyrogram import Client, filters
 from pyrogram.types import Message
@@ -16,6 +17,20 @@ from pyromod import listen
 import helper
 from logger import logging
 from vars import API_ID, API_HASH, BOT_TOKEN
+
+# -------------------- Flask for Render Port --------------------
+from flask import Flask
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Bot is running!"
+
+def run_flask():
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
+
+Thread(target=run_flask).start()
 
 # --- Bot Init ---
 bot = Client(
@@ -27,9 +42,6 @@ bot = Client(
 
 photo = "youtube.jpg"
 start_ph = "image-optimisation-scaled.jpg"
-api_url = "http://master-api-v3.vercel.app/"
-api_token = "YOUR_API_TOKEN_HERE"
-token_cp = "YOUR_CP_TOKEN_HERE"
 CR = "S A K S H A M"
 
 # -------------------- CAPTION TEMPLATES --------------------
@@ -73,7 +85,6 @@ async def txt_handler(bot: Client, m: Message):
     file_path = await input_msg.download()
     file_name, ext = os.path.splitext(os.path.basename(file_path))
 
-    # decrypt if encrypted
     if file_name.startswith("encrypted_"):
         file_path = helper.decrypt_file_txt(file_path)
         await input_msg.delete(True)
@@ -125,12 +136,10 @@ async def txt_handler(bot: Client, m: Message):
     count = start_index
     for link in content[start_index-1:]:
         try:
-            # Extract name and url
             name1, url = link.split(":", 1)
             url = url.strip()
             name_clean = re.sub(r'[^\w\-]', '', name1)[:60]
 
-            # Detect file type
             if ".pdf" in url:
                 file_type = "pdf"
             elif any(url.endswith(ext) for ext in [".mp4", ".mkv"]):
@@ -142,11 +151,10 @@ async def txt_handler(bot: Client, m: Message):
             elif ".html" in url:
                 file_type = "html"
             else:
-                file_type = "mp4"  # default
+                file_type = "mp4"
 
             caption = get_captions(file_type, count, name1, resolution, batch_name, url)
 
-            # Download and send logic
             if "drive" in url or ".pdf" in url:
                 downloaded_file = await helper.download(url, f"{name_clean}.{file_type}")
                 await bot.send_document(chat_id=m.chat.id, document=downloaded_file, caption=caption, parse_mode="html")
@@ -156,7 +164,6 @@ async def txt_handler(bot: Client, m: Message):
                 await bot.send_photo(chat_id=m.chat.id, photo=f'{name_clean}.jpg', caption=caption)
                 os.remove(f'{name_clean}.jpg')
             else:
-                # yt-dlp / m3u8 / video links
                 await helper.download_m3u8_proxy(url, f"{name_clean}.mp4")
                 await bot.send_video(chat_id=m.chat.id, video=f"{name_clean}.mp4", caption=caption)
                 os.remove(f"{name_clean}.mp4")
@@ -173,3 +180,4 @@ async def txt_handler(bot: Client, m: Message):
 
 # -------------------- RUN BOT --------------------
 bot.run()
+    
