@@ -1,16 +1,5 @@
-import os
+from os import environ
 
-try:
-    API_ID = int(os.environ["API_ID"])
-except KeyError:
-    raise RuntimeError("22470912")
-
-try:
-    API_HASH = ["API_HASH"]
-except KeyError:
-    raise RuntimeError("511be78079ed5d4bd4c967bc7b5ee023")
-
-try:
-    BOT_TOKEN = os.environ["BOT_TOKEN"]
-except KeyError:
-    raise RuntimeError("7254519583:AAHCuy42E2GbwNFzfUF1Gjt5oBAoOy_i7Kw")
+API_ID = int(environ.get("API_ID", "22470912"))
+API_HASH = str(environ.get("API_HASH", "511be78079ed5d4bd4c967bc7b5ee023"))
+BOT_TOKEN = str(environ.get("BOT_TOKEN", "7254519583:AAEdEM7ct3pVEOwbBCGWJOWd7ghUETT-Yp0"))
